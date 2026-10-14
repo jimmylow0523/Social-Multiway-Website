@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Social Book — Social Multiway</title>
+  <meta name="description" content="Explore sample daily In and Out records in MYR, with masked Character IDs.">
+  <meta name="theme-color" content="#f7f5ef">
+  <link rel="icon" type="image/svg+xml" href="/assets/social-multiway-icon-olive.svg">
+  <link rel="stylesheet" href="/site.css?v=20261013-scroll-shadow">
+  <link rel="stylesheet" href="/social-book.css?v=20261013-book">
+  <script src="/site.js?v=20261013-scroll-shadow" defer></script>
+  <script src="/social-book.js?v=20261013-book" defer></script>
+</head>
+<body class="book-view">
+<a class="skip" href="#main">Skip to content</a>
+<header class="header"><div class="wrap header-inner">
+  <div class="header-start">
+    <div class="menu-cluster">
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navigation" type="button"><svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path class="menu-line-top" d="M4 7h16"/><path class="menu-line-middle" d="M4 12h16"/><path class="menu-line-bottom" d="M4 17h16"/></svg></button>
+      <nav class="site-menu" id="navigation" aria-label="Main navigation" hidden><a href="/">Home</a><a href="/about/">About us</a><a href="/contact/">Contact us</a><a href="/#social-button" class="menu-group-start">Social Button</a><a href="/social-book/" aria-current="page">Social Book</a><a href="/#social-shop">Social Shop</a><a href="/privacy/" class="menu-group-start">Privacy</a></nav>
+    </div>
+    <a class="brand" href="/" aria-label="Social Multiway home"><img class="brand-logo brand-logo-dark" src="/assets/social-multiway-logo-olive.svg" alt="Social Multiway" width="537" height="123" decoding="async"><img class="brand-logo brand-logo-light" src="/assets/social-multiway-logo-ivory.svg" alt="" aria-hidden="true" width="537" height="123" decoding="async"></a>
+  </div>
+  <nav class="nav" aria-label="Quick links"><a href="/#businesses">Our businesses</a><a href="/about/">About us</a><a href="/contact/">Contact</a></nav>
+</div></header>
+<main id="main" class="book-main wrap">
+  <section class="book-intro" aria-labelledby="book-title">
+    <div class="book-intro-copy">
+      <p class="eyebrow">Social Multiway / Daily activity</p>
+      <h1 id="book-title">Social <em>Book.</em></h1>
+      <p class="book-lead">A clear view of the everyday.</p>
+      <p class="book-description">Explore daily spending and how company funds are used to help, one record at a time.</p>
+    </div>
+    <dl class="book-key" aria-label="Understanding the records">
+      <div><dt><span aria-hidden="true">↙</span> In</dt><dd>Daily spending on the platform.</dd></div>
+      <div><dt><span aria-hidden="true">↗</span> Out</dt><dd>Company funds used to provide help.</dd></div>
+    </dl>
+  </section>
+
+  <section class="book-ledger" aria-labelledby="records-title">
+    <div class="book-notice"><span class="book-sample-label">Sample records</span><p>Illustrative amounts only. These are not live company records.</p></div>
+    <div class="book-toolbar">
+      <div><h2 id="records-title">Daily records</h2><p class="book-currency" id="book-currency">All amounts in MYR (Malaysian ringgit).</p></div>
+      <div class="book-controls" hidden>
+        <label for="book-date">Date<select id="book-date" aria-controls="book-rows"></select></label>
+        <label for="book-order">Order by<select id="book-order" aria-controls="book-rows"><option value="in">Highest In first</option><option value="out">Highest Out first</option></select></label>
+      </div>
+    </div>
+    <p class="book-results" id="book-results" role="status" aria-live="polite" aria-atomic="true">18 sample records · All dates · Highest In first within each day</p>
+    <div class="book-table-scroll" role="region" aria-label="Daily records table" tabindex="0">
+      <table class="book-table" aria-describedby="book-currency book-results book-privacy">
+        <caption class="book-visually-hidden">Sample daily spending and company funds used, by masked Character ID.</caption>
+        <thead><tr><th scope="col">Character ID</th><th scope="col">Date</th><th scope="col" class="book-amount" id="book-in-heading">In</th><th scope="col" class="book-amount" id="book-out-heading">Out</th></tr></thead>
+        <tbody id="book-rows">
+          <tr data-date="2026-10-13" data-in="128000" data-out="24000"><th scope="row" class="book-id">EMxxxxxxxxxx12</th><td><time datetime="2026-10-13">2026-10-13</time></td><td class="book-amount book-in">1,280.00</td><td class="book-amount">240.00</td></tr>
+          <tr data-date="2026-10-13" data-in="96550" data-out="18000"><th scope="row" class="book-id">EMxxxxxxxxxx47</th><td><time datetime="2026-10-13">2026-10-13</time></td><td class="book-amount book-in">965.50</td><td class="book-amount">180.00</td></tr>
+          <tr data-date="2026-10-13" data-in="72000" data-out="0"><th scope="row" class="book-id">EMxxxxxxxxxx83</th><td><time datetime="2026-10-13">2026-10-13</time></td><td class="book-amount book-in">720.00</td><td class="book-amount">0.00</td></tr>
+          <tr data-date="2026-10-13" data-in="58000" data-out="12500"><th scope="row" class="book-id">EMxxxxxxxxxx26</th><td><time datetime="2026-10-13">2026-10-13</time></td><td class="book-amount book-in">580.00</td><td class="book-amount">125.00</td></tr>
+          <tr data-date="2026-10-13" data-in="42500" data-out="9000"><th scope="row" class="book-id">EMxxxxxxxxxx59</th><td><time datetime="2026-10-13">2026-10-13</time></td><td class="book-amount book-in">425.00</td><td class="book-amount">90.00</td></tr>
+          <tr data-date="2026-10-13" data-in="31000" data-out="15000"><th scope="row" class="book-id">EMxxxxxxxxxx04</th><td><time datetime="2026-10-13">2026-10-13</time></td><td class="book-amount book-in">310.00</td><td class="book-amount">150.00</td></tr>
+          <tr data-date="2026-10-13" data-in="18500" data-out="6000"><th scope="row" class="book-id">EMxxxxxxxxxx71</th><td><time datetime="2026-10-13">2026-10-13</time></td><td class="book-amount book-in">185.00</td><td class="book-amount">60.00</td></tr>
+          <tr data-date="2026-10-13" data-in="9500" data-out="4500"><th scope="row" class="book-id">EMxxxxxxxxxx38</th><td><time datetime="2026-10-13">2026-10-13</time></td><td class="book-amount book-in">95.00</td><td class="book-amount">45.00</td></tr>
+          <tr data-date="2026-10-12" data-in="112000" data-out="20000"><th scope="row" class="book-id">EMxxxxxxxxxx47</th><td><time datetime="2026-10-12">2026-10-12</time></td><td class="book-amount book-in">1,120.00</td><td class="book-amount">200.00</td></tr>
+          <tr data-date="2026-10-12" data-in="89000" data-out="16500"><th scope="row" class="book-id">EMxxxxxxxxxx12</th><td><time datetime="2026-10-12">2026-10-12</time></td><td class="book-amount book-in">890.00</td><td class="book-amount">165.00</td></tr>
+          <tr data-date="2026-10-12" data-in="64000" data-out="0"><th scope="row" class="book-id">EMxxxxxxxxxx59</th><td><time datetime="2026-10-12">2026-10-12</time></td><td class="book-amount book-in">640.00</td><td class="book-amount">0.00</td></tr>
+          <tr data-date="2026-10-12" data-in="48000" data-out="12000"><th scope="row" class="book-id">EMxxxxxxxxxx83</th><td><time datetime="2026-10-12">2026-10-12</time></td><td class="book-amount book-in">480.00</td><td class="book-amount">120.00</td></tr>
+          <tr data-date="2026-10-12" data-in="27500" data-out="8500"><th scope="row" class="book-id">EMxxxxxxxxxx04</th><td><time datetime="2026-10-12">2026-10-12</time></td><td class="book-amount book-in">275.00</td><td class="book-amount">85.00</td></tr>
+          <tr data-date="2026-10-12" data-in="15000" data-out="5000"><th scope="row" class="book-id">EMxxxxxxxxxx26</th><td><time datetime="2026-10-12">2026-10-12</time></td><td class="book-amount book-in">150.00</td><td class="book-amount">50.00</td></tr>
+          <tr data-date="2026-10-11" data-in="105000" data-out="21000"><th scope="row" class="book-id">EMxxxxxxxxxx83</th><td><time datetime="2026-10-11">2026-10-11</time></td><td class="book-amount book-in">1,050.00</td><td class="book-amount">210.00</td></tr>
+          <tr data-date="2026-10-11" data-in="76500" data-out="14000"><th scope="row" class="book-id">EMxxxxxxxxxx26</th><td><time datetime="2026-10-11">2026-10-11</time></td><td class="book-amount book-in">765.00</td><td class="book-amount">140.00</td></tr>
+          <tr data-date="2026-10-11" data-in="52000" data-out="10000"><th scope="row" class="book-id">EMxxxxxxxxxx71</th><td><time datetime="2026-10-11">2026-10-11</time></td><td class="book-amount book-in">520.00</td><td class="book-amount">100.00</td></tr>
+          <tr data-date="2026-10-11" data-in="24000" data-out="0"><th scope="row" class="book-id">EMxxxxxxxxxx38</th><td><time datetime="2026-10-11">2026-10-11</time></td><td class="book-amount book-in">240.00</td><td class="book-amount">0.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="book-empty" id="book-empty" hidden>No sample records are available for this date.</p>
+    <div class="book-table-note"><p id="book-privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="6" y="10" width="12" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Character IDs show only the prefix and final two digits.</p><span>YYYY-MM-DD</span></div>
+    <noscript><p class="book-no-script">All sample dates are shown. Enable JavaScript to select a date or change the order.</p></noscript>
+  </section>
+</main>
+<footer class="footer"><div class="wrap"><div class="footer-main"><a class="brand" href="/" aria-label="Social Multiway home"><img class="brand-logo brand-logo-dark" src="/assets/social-multiway-logo-olive.svg" alt="Social Multiway" width="537" height="123" decoding="async"><img class="brand-logo brand-logo-light" src="/assets/social-multiway-logo-ivory.svg" alt="" aria-hidden="true" width="537" height="123" decoding="async"></a><nav class="footer-nav" aria-label="Footer navigation"><a href="/#businesses">Our businesses</a><a href="/about/">About us</a><a href="/contact/">Contact us</a></nav></div><div class="footer-bottom"><span>© 2026 Social Multiway. All rights reserved.</span></div></div></footer>
+</body>
+</html>
