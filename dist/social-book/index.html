@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="/social-book.css?v=20261014-simplified-labels">
   <script src="/site.js?v=20261013-scroll-shadow" defer></script>
   <script src="/social-book-data.js?v=20261014-types-eight-days" defer></script>
-  <script src="/social-book.js?v=20261014-dashboard-redesign" defer></script>
+  <script src="/social-book.js?v=20261015-labels" defer></script>
 </head>
 <body class="book-view">
 <a class="skip" href="#main">Skip to content</a>
@@ -20,7 +20,7 @@
   <div class="header-start">
     <div class="menu-cluster">
       <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navigation" type="button"><svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path class="menu-line-top" d="M4 7h16"/><path class="menu-line-middle" d="M4 12h16"/><path class="menu-line-bottom" d="M4 17h16"/></svg></button>
-      <nav class="site-menu" id="navigation" aria-label="Main navigation" hidden><a href="/">Home</a><a href="/about/">About us</a><a href="/contact/">Contact us</a><a href="/#social-button" class="menu-group-start">Social Button</a><a href="/social-book/" aria-current="page">Social Book</a><a href="/#social-shop">Social Shop</a><a href="/privacy/" class="menu-group-start">Privacy</a></nav>
+      <nav class="site-menu" id="navigation" aria-label="Main navigation" hidden><a href="/">Home</a><a href="/about/">About us</a><a href="/contact/">Contact us</a><a href="/#social-button" class="menu-group-start">Social Button</a><a href="/social-book/" aria-current="page">Social Book</a><a href="/#social-shop">Social Shop</a><a href="/privacy/" class="menu-group-start">Privacy</a><a href="/testing/">Testing page</a></nav>
     </div>
     <a class="brand" href="/" aria-label="Social Multiway home"><img class="brand-logo brand-logo-dark" src="/assets/social-multiway-logo-green.svg" alt="Social Multiway" width="537" height="123" decoding="async"><img class="brand-logo brand-logo-light" src="/assets/social-multiway-logo-ivory.svg" alt="" aria-hidden="true" width="537" height="123" decoding="async"></a>
   </div>
@@ -34,7 +34,7 @@
   <div class="book-command"><div class="book-tabs" role="tablist" aria-label="Spending view"><button id="book-tab-in" type="button" role="tab" aria-selected="true" aria-controls="book-dashboard">↙ <strong>IN</strong></button><button id="book-tab-out" type="button" role="tab" aria-selected="false" aria-controls="book-dashboard" tabindex="-1">↗ <strong>OUT</strong></button></div></div>
   <div id="book-dashboard" role="tabpanel" aria-labelledby="book-tab-in" tabindex="0">
     <div class="book-scope">
-      <div id="book-type-control" class="book-type-control"><span id="book-type-label" class="book-control-label">Character type</span><div class="book-types" role="radiogroup" aria-labelledby="book-type-label"><button type="button" id="book-type-kid" role="radio" aria-checked="true" aria-controls="book-overview book-in-table">Kid</button><button type="button" id="book-type-elder" role="radio" aria-checked="false" aria-controls="book-overview book-in-table" tabindex="-1">Elder</button><button type="button" id="book-type-pet" role="radio" aria-checked="false" aria-controls="book-overview book-in-table" tabindex="-1">Pet</button></div></div>
+      <div id="book-type-control" class="book-type-control"><div class="book-types" role="radiogroup" aria-label="Character type"><button type="button" id="book-type-kid" role="radio" aria-checked="true" aria-controls="book-overview book-in-table">Kid</button><button type="button" id="book-type-elder" role="radio" aria-checked="false" aria-controls="book-overview book-in-table" tabindex="-1">Elder</button><button type="button" id="book-type-pet" role="radio" aria-checked="false" aria-controls="book-overview book-in-table" tabindex="-1">Pet</button></div></div>
       <p id="book-company-scope" class="book-company-scope" hidden>Company-wide spending <span>Across all character types</span></p>
 
     </div>

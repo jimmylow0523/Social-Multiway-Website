@@ -125,7 +125,7 @@
     find('#book-company-scope').hidden = isIn;
     typeButtons.forEach((button, index) => { const active = data.types[index] === state.type; button.setAttribute('aria-checked', String(active)); button.tabIndex = active ? 0 : -1; });
     set('#book-analysis-title', isIn ? typeNames[state.type] + ' · Coins spent' : 'Company · RM spent');
-    set('#book-window', shortDate(data.dates.at(-1)) + ' — ' + shortDate(data.today) + ' · 8 days');
+    set('#book-window', shortDate(data.dates.at(-1)) + ' — ' + shortDate(data.today));
     tabs.forEach((tab, index) => { const active = index === (isIn ? 0 : 1); tab.setAttribute('aria-selected', String(active)); tab.tabIndex = active ? 0 : -1; });
     find('#book-dashboard').setAttribute('aria-labelledby', isIn ? 'book-tab-in' : 'book-tab-out');
     set('#book-total-label', isIn ? 'Total Coins' : 'Company spending · RM');

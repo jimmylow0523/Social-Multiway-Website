@@ -1,0 +1,222 @@
+/* Shared text hierarchy for the three company pages. Backgrounds and artwork
+   keep their existing colors; each dark surface has its own inverse text. */
+:is(.homepage, .about-view, .contact-view) {
+  --text-heading: #2d2b26;
+  --text-body: #5e5b52;
+  --text-muted: #6b675c;
+  --text-accent: #62664b;
+  --text-inverse: #fffaf1;
+  --text-inverse-body: #f0e9dd;
+  --text-inverse-muted: #d8d0c3;
+  --text-inverse-accent: #ede1c9;
+  --home-ink: var(--text-heading);
+  --home-muted: var(--text-body);
+  --home-accent: var(--text-accent);
+  --about-ink: var(--text-heading);
+  --about-muted: var(--text-body);
+  --contact-ink: var(--text-heading);
+  --contact-muted: var(--text-body);
+}
+
+/* Navigation and footer labels retain a clear hierarchy on their own surfaces. */
+:is(.homepage, .about-view, .contact-view) .header {
+  color: var(--text-heading);
+}
+:is(.homepage, .about-view, .contact-view) .site-menu {
+  color: var(--text-heading);
+}
+:is(.homepage, .about-view, .contact-view) .site-menu a:is(:hover, [aria-current="page"]),
+:is(.homepage, .about-view, .contact-view) .nav a:is(:hover, [aria-current="page"]) {
+  color: var(--text-accent);
+}
+.homepage .home-header:not(.is-scrolled):not(.is-menu-open),
+.homepage .home-header:not(.is-scrolled):not(.is-menu-open) .nav a {
+  color: var(--text-inverse);
+}
+.homepage .home-header:not(.is-scrolled):not(.is-menu-open) .nav a:hover {
+  color: var(--text-inverse-accent);
+}
+:is(.homepage, .about-view, .contact-view) .footer-copyright {
+  color: var(--text-inverse-muted);
+}
+:is(.homepage, .about-view, .contact-view) .footer-nav a {
+  color: var(--text-inverse);
+}
+:is(.homepage, .about-view, .contact-view) .footer-nav a:hover {
+  color: var(--text-inverse-accent);
+}
+
+/* Landing page: accents follow each section's materials and background. */
+.homepage main .eyebrow,
+.homepage .feature-eyebrow {
+  color: var(--text-muted);
+}
+.homepage .about-band {
+  --text-heading: #302b25;
+  --text-body: #5c554a;
+  --text-muted: #6a5d4d;
+  --text-accent: #725c46;
+  --home-ink: var(--text-heading);
+  --home-muted: var(--text-body);
+  --home-accent: var(--text-accent);
+  color: var(--text-heading);
+}
+.homepage .hero-inner h1 {
+  color: var(--text-inverse);
+}
+.homepage .hero-inner h1 span {
+  color: var(--text-inverse-accent);
+}
+.homepage .hero-inner p {
+  color: var(--text-inverse-body);
+}
+.homepage .hero-inner .btn-light {
+  color: var(--text-heading);
+}
+.homepage .text-link {
+  color: var(--text-accent);
+}
+.homepage #social-button {
+  --feature-ink: #795b3c;
+}
+.homepage #social-book {
+  --feature-ink: #526047;
+}
+.homepage #social-shop {
+  --feature-ink: #41413b;
+}
+.homepage .feature-content h3 span,
+.homepage .feature-cta {
+  color: var(--feature-ink);
+}
+.homepage .feature-cta {
+  border-color: var(--feature-ink);
+}
+.homepage .feature-cta:focus-visible {
+  outline-color: var(--feature-ink);
+}
+.homepage .feature-art {
+  color: var(--feature-ink);
+}
+.homepage .feature-art-top {
+  color: var(--text-muted);
+}
+.homepage .feature-art-shop {
+  color: var(--text-inverse);
+}
+.homepage .feature-art-shop .feature-art-top {
+  color: var(--text-inverse-muted);
+}
+.homepage .feature-cta:hover {
+  background: var(--feature-ink);
+  border-color: var(--feature-ink);
+  color: var(--text-inverse);
+}
+.homepage .btn-dark {
+  color: var(--text-inverse);
+}
+
+/* About us: warm emphasis on cream, olive on sage, ivory on dark olive. */
+.about-view main h1 em,
+.about-view main h2 em {
+  color: var(--text-accent);
+  letter-spacing: -.025em;
+}
+.about-view .about-hero h1 em {
+  color: #725c46;
+}
+.about-view .about-purpose h2 em {
+  color: #526047;
+}
+.about-view .about-eyebrow,
+.about-view .about-section-label {
+  color: var(--text-muted);
+}
+/* Repeat the three business identities established on the landing page. */
+.about-business[data-business="button"] { --business-ink: #795b3c; }
+.about-business[data-business="book"] { --business-ink: #526047; }
+.about-business[data-business="shop"] { --business-ink: #41413b; }
+.about-view .about-business {
+  --about-olive: var(--business-ink);
+}
+.about-view .about-business h3 span,
+.about-view .about-business-arrow {
+  color: var(--business-ink);
+}
+.about-view .about-business h3 span { font-weight: 600; }
+.about-view .about-business[data-business="book"] h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  letter-spacing: -.04em;
+}
+.about-view .about-business[data-business="book"] h3 span {
+  font-style: italic;
+  font-weight: 400;
+}
+.about-view .about-business[data-business="shop"] h3 span { font-weight: 650; }
+.about-view .about-business:is(:active, :focus-visible) .about-business-arrow {
+  color: var(--text-inverse);
+}
+@media (hover: hover) and (pointer: fine) {
+  .about-view .about-business:hover .about-business-arrow {
+    color: var(--text-inverse);
+  }
+}
+.about-view .about-section-label > span,
+.about-view .about-hero-note,
+.about-view .about-visual figcaption,
+.about-view .about-principle-mark,
+.about-view .about-business-number,
+.about-view .about-business-kind {
+  color: var(--text-muted);
+}
+.about-view .about-button {
+  color: var(--text-inverse);
+}
+.about-view .about-connect h2 {
+  color: var(--text-inverse);
+}
+.about-view .about-connect h2 em {
+  color: var(--text-inverse-accent);
+}
+.about-view .about-connect .about-eyebrow {
+  color: var(--text-inverse-muted);
+}
+.about-view .about-connect-action p {
+  color: var(--text-inverse-body);
+}
+.about-view .about-button-light {
+  color: var(--text-heading);
+}
+
+/* Contact us: bronze emphasis on cream, charcoal labels, warm supporting text. */
+.contact-view .contact-story h1 em {
+  color: #725c46;
+  letter-spacing: -.025em;
+}
+.contact-view .contact-kicker,
+.contact-view .contact-label {
+  color: var(--text-muted);
+}
+.contact-view .contact-email,
+.contact-view .message-panel-heading h2,
+.contact-view .message-field label {
+  color: var(--text-heading);
+}
+.contact-view .contact-caption,
+.contact-view .message-field label span,
+.contact-view .message-actions > p,
+.contact-view .message-noscript {
+  color: var(--text-muted);
+}
+.contact-view .social-placeholder,
+.contact-view .message-feedback {
+  color: var(--text-body);
+}
+.contact-view .message-field input::placeholder,
+.contact-view .message-field textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+.contact-view .message-submit {
+  color: var(--text-inverse);
+}
