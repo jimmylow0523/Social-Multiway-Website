@@ -30,7 +30,8 @@
 .about-view main h1 em,
 .about-view main h2 em { font-weight: 400; color: #697654; }
 .about-eyebrow { font-size: .6875rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; line-height: 1.6; }
-.about-dot { display: inline-block; width: 7px; height: 7px; margin-right: 9px; border-radius: 50%; background: #758062; vertical-align: 1px; }
+.about-dot { display: block; flex: 0 0 6px; width: 6px; height: 6px; border-radius: 50%; background: #758062; transform: translateY(-.5px); }
+.about-hero-copy > .about-eyebrow { display: flex; align-items: center; gap: 10px; }
 .about-hero { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(36px, 5vw, 72px); align-items: center; padding-block: 60px 76px; }
 .about-hero-copy { padding-bottom: 28px; }
 .about-hero h1 { font-size: clamp(3.75rem, 6.5vw, 5.75rem); line-height: 1.03; margin: 28px 0 24px -.04em; }
@@ -47,7 +48,7 @@
 .about-visual figcaption span:last-child { text-transform: uppercase; letter-spacing: .1em; }
 .about-purpose { padding-block: 84px; background: #eeefe6; scroll-margin-top: 100px; }
 .about-section-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 40px; align-items: start; }
-.about-section-label { display: flex; gap: 22px; padding-top: 10px; font-size: .6875rem; line-height: 1.6; font-weight: 650; text-transform: uppercase; letter-spacing: .11em; }
+.about-section-label { display: flex; align-items: center; gap: 10px; padding-top: 10px; font-size: .6875rem; line-height: 1.6; font-weight: 650; text-transform: uppercase; letter-spacing: .11em; }
 .about-section-label > span { color: var(--about-muted); font-weight: 500; letter-spacing: 0; font-variant-numeric: tabular-nums; }
 .about-purpose h2,
 .about-family h2 { font-size: clamp(2.5rem, 4.15vw, 3.75rem); line-height: 1.12; margin-inline-start: -.04em; }

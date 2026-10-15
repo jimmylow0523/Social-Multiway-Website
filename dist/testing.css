@@ -7,7 +7,7 @@
   font-display: swap;
 }
 .testing-view {
-  --testing-logo-color: #5aab8b;
+  --testing-logo-color: #3c4127;
   --testing-title-color: #30382b;
   --testing-heading-color: #30382b;
   --testing-accent-color: #697654;
@@ -33,7 +33,7 @@
 .sample-card { padding: clamp(22px, 3vw, 36px); border: 1px solid #d9dccf; border-radius: 14px; background: #f8f6ef; overflow-wrap: anywhere; }
 .sample-card + .sample-card { margin-top: 18px; }
 .sample-label { margin-bottom: 22px; font-size: .625rem; font-weight: 650; line-height: 1.8; letter-spacing: .08em; text-transform: uppercase; }
-.testing-view .testing-color-logo { display: block; aspect-ratio: 536.97821 / 122.50291; background-color: var(--testing-logo-color); -webkit-mask: url('/assets/social-multiway-logo-green.svg') center / contain no-repeat; mask: url('/assets/social-multiway-logo-green.svg') center / contain no-repeat; }
+.testing-view .testing-color-logo { display: block; aspect-ratio: 536.97821 / 122.50291; background-color: var(--testing-logo-color); -webkit-mask: url('/assets/social-multiway-logo-olive.svg') center / contain no-repeat; mask: url('/assets/social-multiway-logo-olive.svg') center / contain no-repeat; }
 .sample-logo-card .testing-color-logo { width: min(100%, 360px); margin-block: 30px; }
 .sample-caption { font-size: .6875rem; margin-top: 16px; }
 .sample-title, .sample-heading, .sample-accent { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; letter-spacing: -.045em; }
