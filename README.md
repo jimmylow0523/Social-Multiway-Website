@@ -61,11 +61,13 @@ You can also upload this extracted folder into your own GitHub repository.
 
 ## Current functionality
 
-Social Book is a switchable In/Out dashboard using fictional demo data for 30 days, from 2026-09-15 through 2026-10-14. In has exactly 100 masked records per date (3,000 total), ranks by Total Coins, and supports 10/25/50 rows per page with direct page jumps. Out has one independent company total per date, stored in integer sen and displayed in RM, with no pagination.
+Social Book has In and Out views. In offers Kid, Elder and Pet filters, each with 100 fictional masked spending records per date (800 per type, 2,400 total). In ranks by Total Coins and retains 10/25/50 rows per page and direct page jumps. Out is company-wide, independent of character type: one total per date in RM plus image evidence, without pagination. Money is stored as integer sen; coins are never converted to RM.
 
-The analysis has independent From/To date controls, defaulting to the full 30-day period. Its totals and line graph follow that range. Hover, click or focus a graph point to read its exact value; arrow keys explore adjacent dates. Invalid or reversed ranges show an error and retain the previous valid analysis. The table has its own date selector, including All 30 dates. Changing analysis dates does not reset table filters or pagination; changing the table does not alter analysis dates or the graph readout. Switching In/Out preserves both filters. The top-right date range has been removed.
+The graph always shows eight dates: today and the previous seven days in Asia/Kuala_Lumpur. Today is labeled explicitly; all figures remain demo data, not a live feed. The window rolls at Malaysia midnight, checked every minute and when the tab becomes visible. Overlapping historical demo records remain stable. A live API is still needed for real-time spending updates.
 
-Only the requested In page is rendered. The local demo adapter in `dist/social-book-data.js` generates 3,000 records and exposes `query({date, page, size})` plus summaries. A real million-record deployment needs server-side filtering, sorting, pagination and precomputed summaries; this static demo does not include that backend. Do not send the complete production dataset to the browser. Tests exercise million-record pagination metadata with a bounded page response, not a production database load test.
+The table has an independent date selector for today, each of the seven historical dates, or All 8 days. Changing its date or pagination does not change the graph. Selecting a character changes In totals, graph and ranking, resets pagination, and retains the table date. Switching In/Out retains the selected character and filters. The table allows scrolling to continue into the page at its edges; on mobile, the page owns vertical scrolling.
+
+The local demo adapter in `dist/social-book-data.js` exposes `query({type, date, page, size})`, `summary(date, type)` and `createDemoData(now)`. A real million-record deployment needs server-side filtering, sorting, pagination and precomputed summaries; this static demo does not include that backend. Do not send the complete production dataset to the browser. Tests exercise million-record pagination metadata with a bounded page response, not a production database load test.
 
 Only masked Character IDs should reach public files or any future public API. Preserve the alphabetic prefix and last two digits, replacing intervening digits with lowercase x. Demo record keys are independent of these masked labels, which can repeat. Coins are never converted into RM.
 
@@ -73,8 +75,8 @@ Each company date has an empty `images` array. View opens an evidence dialog wit
 
 The shared header and footer remain unchanged. Pointer switches have a brief transition; keyboard actions and reduced-motion settings do not animate. Run checks with `node --test tests/social-book.test.cjs`.
 
-The contact form validates inputs and displays a message preview. It does not send email, store submissions or connect to a backend or database.
-The company email address is currently a placeholder on the Contact Us page.
+The redesigned Contact Us page has a simple name, email and message form. It validates inputs and displays demo feedback; it does not send email, store submissions or connect to a backend or database.
+The company email, `socialmultiway@gmail.com`, is a display-only example without a link. Replace its text in `dist/contact/index.html` when ready. Facebook, Instagram and TikTok are also display-only placeholders without links.
 Connect the form to your backend or email service and add your actual company email before accepting enquiries.
 
 Shared page styles request DM Sans and Manrope from Google Fonts; system sans-serif fonts provide a fallback when offline.

@@ -1,10 +1,14 @@
 (() => {
   'use strict';
-  const data = globalThis.SocialBookData;
+  let data = globalThis.SocialBookData;
   const find = selector => document.querySelector(selector);
   const date = find('#book-date');
   if (!data || !date) return;
-  const state = { mode: 'in', page: 1, size: 10, from: data.dates.at(-1), to: data.dates[0] };
+  const state = { mode: 'in', type: 'kid', page: 1, size: 10 };
+  const typeNames = { kid: 'Kid', elder: 'Elder', pet: 'Pet' };
+  const typeButtons = data.types.map(type => find('#book-type-' + type));
+  const shortDate = value => new Intl.DateTimeFormat('en-MY', { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(value + 'T00:00:00Z'));
+  const dateLabel = value => value + (value === data.today ? ' · Today' : '');
   const integer = new Intl.NumberFormat('en-MY');
   const money = new Intl.NumberFormat('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const compact = new Intl.NumberFormat('en-MY', { notation: 'compact', maximumFractionDigits: 1 });
@@ -27,15 +31,15 @@
     if (!event?.detail || globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
     animation = find('#book-dashboard').animate?.([{ opacity: .65, transform: 'translateY(5px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 180, easing: 'cubic-bezier(.23,1,.32,1)' });
   };
-  const all = node('option', 'All 30 dates'); all.value = 'all'; date.append(all);
-  for (const value of data.dates) { const option = node('option', value); option.value = value; date.append(option); }
-  date.value = data.dates[0];
-  const from = find('#book-analysis-from');
-  const to = find('#book-analysis-to');
-  for (const input of [from, to]) { input.min = data.dates.at(-1); input.max = data.dates[0]; }
-  from.value = state.from; to.value = state.to;
+  function populateDates(selected = data.today) {
+    date.replaceChildren();
+    const all = node('option', 'All 8 days'); all.value = 'all'; date.append(all);
+    for (const value of data.dates) { const option = node('option', dateLabel(value)); option.value = value; date.append(option); }
+    date.value = selected === 'all' || data.dates.includes(selected) ? selected : data.today;
+  }
+  populateDates();
   function analysisDays() {
-    return [...data.dates].reverse().filter(value => value >= state.from && value <= state.to).map(value => ({ date: value, ...data.summary(value) }));
+    return [...data.dates].reverse().map(value => ({ date: value, ...data.summary(value, state.type) }));
   }
   const svgNode = (tag, attributes = {}, text) => {
     const element = document.createElementNS('http://www.w3.org/2000/svg', tag);
@@ -63,12 +67,12 @@
     const markerNodes = [];
     const show = index => {
       const point = points[index];
-      set('#book-chart-readout', point.day.date + ' · ' + (isIn ? integer.format(point.value) + ' Total Coins' : 'RM ' + money.format(point.value)));
+      set('#book-chart-readout', dateLabel(point.day.date) + ' · ' + (isIn ? integer.format(point.value) + ' Total Coins' : 'RM ' + money.format(point.value)));
       markerNodes.forEach((marker, i) => { marker.setAttribute('tabindex', i === index ? '0' : '-1'); marker.setAttribute('aria-pressed', String(i === index)); });
     };
     points.forEach((point, index) => {
-      const label = point.day.date + ': ' + (isIn ? integer.format(point.value) + ' Total Coins' : 'RM ' + money.format(point.value));
-      const marker = svgNode('circle', { cx: point.x, cy: point.y, r: 5, class: 'book-graph-point', role: 'button', tabindex: '-1', 'aria-label': label });
+      const label = dateLabel(point.day.date) + ': ' + (isIn ? integer.format(point.value) + ' Total Coins' : 'RM ' + money.format(point.value));
+      const marker = svgNode('circle', { cx: point.x, cy: point.y, r: 5, class: 'book-graph-point' + (point.day.date === data.today ? ' is-today' : ''), role: 'button', tabindex: '-1', 'aria-label': label });
       marker.append(svgNode('title', {}, label));
       marker.addEventListener('pointerenter', () => show(index));
       marker.addEventListener('focus', () => show(index));
@@ -81,8 +85,7 @@
       });
       markerNodes.push(marker); svg.append(marker);
     });
-    const tickIndexes = [...new Set(Array.from({ length: Math.min(5, days.length) }, (_, i) => Math.round(i * (days.length - 1) / Math.max(1, Math.min(5, days.length) - 1))))];
-    for (const index of tickIndexes) svg.append(svgNode('text', { x: points[index].x, y: 240, 'text-anchor': index === 0 ? 'start' : index === points.length - 1 ? 'end' : 'middle', class: 'book-graph-label' }, points[index].day.date));
+    points.forEach((point, index) => svg.append(svgNode('text', { x: point.x, y: 240, 'text-anchor': index === 0 ? 'start' : index === points.length - 1 ? 'end' : 'middle', class: 'book-graph-label' + (point.day.date === data.today ? ' is-today' : '') }, point.day.date === data.today ? 'Today' : shortDate(point.day.date))));
     container.append(svg);
     if (points.length) show(points.length - 1);
   }
@@ -100,7 +103,9 @@
     dialog.showModal();
   }
   // The table has its own date filter. Out never uses pagination.
-  for (const record of data.outgoing) {
+  function renderCompanyRows() {
+    find('#book-out-rows').replaceChildren();
+    for (const record of data.outgoing) {
     const row = node('tr'); row.dataset.date = record.date;
     const day = node('th'); day.scope = 'row'; day.append(time(record.date));
     const cell = node('td'); const button = node('button', 'View ↗', 'book-view-evidence'); button.type = 'button';
@@ -108,25 +113,31 @@
     button.addEventListener('click', () => showEvidence(record, button)); cell.append(button);
     row.append(day, node('td', money.format(record.sen / 100), 'book-number'), cell); find('#book-out-rows').append(row);
   }
+  }
+  renderCompanyRows();
   function render() {
     animation?.cancel();
     const isIn = state.mode === 'in';
     const days = analysisDays();
     const summary = days.reduce((total, day) => ({ coins: total.coins + day.coins, count: total.count + day.count, highest: Math.max(total.highest, day.highest), sen: total.sen + day.sen, companyDays: total.companyDays + day.companyDays, highestOut: Math.max(total.highestOut, day.sen) }), { coins: 0, count: 0, highest: 0, sen: 0, companyDays: 0, highestOut: 0 });
     find('#main').dataset.mode = state.mode;
+    find('#book-type-control').hidden = !isIn;
+    find('#book-company-scope').hidden = isIn;
+    typeButtons.forEach((button, index) => { const active = data.types[index] === state.type; button.setAttribute('aria-checked', String(active)); button.tabIndex = active ? 0 : -1; });
+    set('#book-analysis-title', isIn ? typeNames[state.type] + ' · Coins spent' : 'Company · RM spent');
+    set('#book-window', shortDate(data.dates.at(-1)) + ' — ' + shortDate(data.today) + ' · 8 days');
     tabs.forEach((tab, index) => { const active = index === (isIn ? 0 : 1); tab.setAttribute('aria-selected', String(active)); tab.tabIndex = active ? 0 : -1; });
     find('#book-dashboard').setAttribute('aria-labelledby', isIn ? 'book-tab-in' : 'book-tab-out');
     set('#book-total-label', isIn ? 'Total Coins' : 'Company spending · RM');
     set('#book-total', isIn ? integer.format(summary.coins) : money.format(summary.sen / 100));
-    set('#book-selected-date', state.from === state.to ? state.from : state.from + ' — ' + state.to);
     set('#book-secondary-label', isIn ? 'Spending records' : 'Recorded dates');
     set('#book-secondary-value', integer.format(isIn ? summary.count : summary.companyDays));
     set('#book-third-label', isIn ? 'Highest spend · Coins' : 'Highest daily spend · RM');
     set('#book-third-value', isIn ? integer.format(summary.highest) : money.format(summary.highestOut / 100));
     set('#book-chart-unit', isIn ? 'Total Coins' : 'RM');
-    const nextGraphKey = state.mode + state.from + state.to;
+    const nextGraphKey = state.mode + (isIn ? state.type : '') + data.today;
     if (graphKey !== nextGraphKey) { drawGraph(days, isIn); graphKey = nextGraphKey; }
-    set('#book-section-label', isIn ? 'In / Platform' : 'Out / Company');
+    set('#book-section-label', isIn ? 'In / ' + typeNames[state.type] : 'Out / Company');
     set('#book-records-title', isIn ? 'Spending ranking' : 'Daily company spending');
     find('#book-in-table').hidden = !isIn; find('#book-out-table').hidden = isIn;
     find('#book-pagination').hidden = !isIn; find('#book-page-size-control').hidden = !isIn; find('#book-out-label').hidden = isIn;
@@ -136,7 +147,7 @@
       if (!row.hidden) companyCount++;
     }
     set('#book-out-label', companyCount + (companyCount === 1 ? ' date · RM' : ' dates · RM'));
-    const result = data.query({ date: date.value, page: state.page, size: state.size });
+    const result = data.query({ type: state.type, date: date.value, page: state.page, size: state.size });
     state.page = result.page;
     const body = find('#book-in-rows'); body.replaceChildren();
     if (isIn) for (const record of result.rows) {
@@ -150,7 +161,7 @@
     find('#book-page').value = String(result.page); find('#book-page').max = String(result.pages);
     find('#book-first').disabled = find('#book-prev').disabled = result.page === 1;
     find('#book-last').disabled = find('#book-next').disabled = result.page === result.pages;
-    set('#book-status', isIn ? 'In, ' + date.value + ', page ' + result.page + ' of ' + result.pages + '. ' + result.total + ' records.' : 'Out table: ' + companyCount + ' company dates. Analysis total RM ' + money.format(summary.sen / 100) + '.');
+    set('#book-status', isIn ? 'In, ' + typeNames[state.type] + ', ' + date.value + ', page ' + result.page + ' of ' + result.pages + '. ' + result.total + ' records.' : 'Out table: ' + companyCount + ' company dates. Analysis total RM ' + money.format(summary.sen / 100) + '.');
   }
   tabs.forEach((tab, index) => {
     tab.addEventListener('click', event => { state.mode = index === 0 ? 'in' : 'out'; render(); animate(event); });
@@ -160,22 +171,39 @@
       state.mode = next === 0 ? 'in' : 'out'; render(); tabs[next].focus();
     });
   });
-  const updateAnalysis = () => {
-    const valid = data.dates.includes(from.value) && data.dates.includes(to.value) && from.value <= to.value;
-    find('#book-analysis-error').hidden = valid;
-    from.setAttribute('aria-invalid', String(!valid)); to.setAttribute('aria-invalid', String(!valid));
-    if (!valid) return;
-    state.from = from.value; state.to = to.value; render();
-  };
-  from.addEventListener('change', updateAnalysis); to.addEventListener('change', updateAnalysis);
+  typeButtons.forEach((button, index) => {
+    const selectType = next => { state.type = data.types[next]; state.page = 1; render(); };
+    button.addEventListener('click', () => selectType(index));
+    button.addEventListener('keydown', event => {
+      if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      const next = event.key === 'Home' ? 0 : event.key === 'End' ? 2 : (index + (['ArrowLeft', 'ArrowUp'].includes(event.key) ? -1 : 1) + 3) % 3;
+      selectType(next); typeButtons[next].focus();
+    });
+  });
   date.addEventListener('change', () => { state.page = 1; render(); });
   find('#book-page-size').addEventListener('change', () => { state.size = Number(find('#book-page-size').value); state.page = 1; render(); });
-  for (const [id, change] of [['first', () => 1], ['prev', () => state.page - 1], ['next', () => state.page + 1], ['last', () => data.query({ date: date.value, size: state.size }).pages]]) {
+  for (const [id, change] of [['first', () => 1], ['prev', () => state.page - 1], ['next', () => state.page + 1], ['last', () => data.query({ type: state.type, date: date.value, size: state.size }).pages]]) {
     find('#book-' + id).addEventListener('click', () => { state.page = change(); render(); });
   }
   find('#book-page-form').addEventListener('submit', event => { event.preventDefault(); state.page = Number(find('#book-page').value); render(); });
   find('#book-close-image').addEventListener('click', () => dialog.close());
   dialog.addEventListener('close', () => returnFocus?.focus());
   dialog.addEventListener('click', event => { if (event.target !== dialog) return; const bounds = dialog.getBoundingClientRect(); if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close(); });
+  function refreshDay() {
+    if (data.currentDate() === data.today) return;
+    const selected = date.value === data.today ? null : date.value;
+    data = data.createDemoData();
+    globalThis.SocialBookData = data;
+    state.page = 1;
+    graphKey = undefined;
+    if (dialog.open) dialog.close();
+    populateDates(selected || data.today);
+    renderCompanyRows();
+    render();
+  }
+  // Roll the demo window at midnight in Malaysia; this is not a live data feed.
+  globalThis.setInterval?.(refreshDay, 60000);
+  document.addEventListener?.('visibilitychange', () => { if (!document.hidden) refreshDay(); });
   render();
 })();
