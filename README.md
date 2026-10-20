@@ -24,6 +24,7 @@ No Node.js, npm installation, framework build, API keys or ChatGPT hosting are r
 - `dist/contact.css`, `dist/contact.js`: contact page styles and form behavior
 - `dist/assets/`: logos, images, responsive images and fonts
 - `dist/assets/fonts/manrope-license.txt`: included Manrope font license
+- `dist/assets/tabler-icons-LICENSE.txt`: license for the IN/OUT arrow icons used by Social Book
 - `.openai/hosting.json`: original Sites hosting configuration; it is not needed for ordinary static hosting
 
 All tracked project files are included. Git history and local development credentials are not part of this export.
@@ -61,17 +62,17 @@ You can also upload this extracted folder into your own GitHub repository.
 
 ## Current functionality
 
-Social Book has In and Out views. In offers Kid, Elder and Pet filters, each with 100 fictional masked spending records per date (800 per type, 2,400 total). In ranks by Total Coins and retains 10/25/50 rows per page and direct page jumps. Out is company-wide, independent of character type: one total per date in RM plus image evidence, without pagination. Money is stored as integer sen; coins are never converted to RM.
+Social Book has In and Out views, both filtered by Kid, Elder and Pet. In has 100 fictional masked spending records per type/date (800 per type, 2,400 total), ranked by Total Coins. Out uses independent company submissions tagged with a character type, date, unique record key, amount in RM and image evidence. Its demo counts vary from zero to fourteen records per type/date; real submission counts are unrestricted. The graph sums each day's submissions for the selected type, while the table shows individual records. Both views support 10/25/50 rows per page and direct page jumps. Money is stored as integer sen; Out records and amounts are never derived from user data or converted from coins.
 
 The graph always shows eight dates: today and the previous seven days in Asia/Kuala_Lumpur. Today is labeled explicitly; all figures remain demo data, not a live feed. The window rolls at Malaysia midnight, checked every minute and when the tab becomes visible. Overlapping historical demo records remain stable. A live API is still needed for real-time spending updates.
 
-The table has an independent date selector for today, each of the seven historical dates, or All 8 days. Changing its date or pagination does not change the graph. Selecting a character changes In totals, graph and ranking, resets pagination, and retains the table date. Switching In/Out retains the selected character and filters. The table allows scrolling to continue into the page at its edges; on mobile, the page owns vertical scrolling.
+The table has an independent date selector for today or each of the seven historical dates. Changing its date or pagination does not change the graph. Selecting a character changes the active view's totals, graph and records, resets pagination, and retains the table date. Switching In/Out retains the selected character, date and page size, and resets to the first page. The table allows scrolling to continue into the page at its edges; on mobile, the page owns vertical scrolling.
 
-The local demo adapter in `dist/social-book-data.js` exposes `query({type, date, page, size})`, `summary(date, type)` and `createDemoData(now)`. A real million-record deployment needs server-side filtering, sorting, pagination and precomputed summaries; this static demo does not include that backend. Do not send the complete production dataset to the browser. Tests exercise million-record pagination metadata with a bounded page response, not a production database load test.
+The local demo adapter in `dist/social-book-data.js` exposes `query({mode, type, date, page, size})` (mode defaults to `in`), `summary(date, type)` and `createDemoData(now)`. Out queries preserve stable submission order within each date, newest dates first. Summaries include `companyRecords` as the count of individual Out submissions. A real million-record deployment needs server-side filtering, sorting, pagination and precomputed summaries; this static demo does not include that backend. Do not send the complete production dataset to the browser. Tests exercise million-record pagination metadata with a bounded page response, not a production database load test.
 
 Only masked Character IDs should reach public files or any future public API. Preserve the alphabetic prefix and last two digits, replacing intervening digits with lowercase x. Demo record keys are independent of these masked labels, which can repeat. Coins are never converted into RM.
 
-Each company date has an empty `images` array. View opens an evidence dialog with an empty state. Add actual evidence later using `{ src: "/assets/evidence/example.webp", alt: "Accurate description" }` and place the corresponding file at that path. Local paths and HTTPS image URLs are supported. There is no upload form, upload service or persistent storage.
+Each demo company record has an empty `images` array. View opens that record's evidence dialog with an empty state. Add actual evidence later using `{ src: "/assets/evidence/example.webp", alt: "Accurate description" }` and place the corresponding file at that path. Local paths and HTTPS image URLs are supported. There is no upload form, upload service or persistent storage.
 
 The shared header and footer remain unchanged. Pointer switches have a brief transition; keyboard actions and reduced-motion settings do not animate. Run checks with `node --test tests/social-book.test.cjs`.
 

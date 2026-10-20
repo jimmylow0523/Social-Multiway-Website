@@ -83,13 +83,19 @@ For now, it should not be explained in detail on the website.
 
 It is currently connected mainly to activity from the Community feature inside Social Button.
 
-Social Book has two main categories:
+Social Book has two views, **IN** and **OUT**. Both views use the same three character-type filters:
+
+- **Kid** — Kiddymon / support for orphans
+- **Elder** — Eldermon / support for elderly people
+- **Pet** — Petamon / support for stray animals
+
+The selected character type applies to both the analytics graph and the records table.
 
 ### IN
 
 **IN records the amount of game coins spent by users.**
 
-When users spend coins inside Community-related game features, Social Book will show the daily amount spent.
+When users spend coins inside Community-related game features, Social Book shows the daily amount spent for the selected character type. The table ranks the selected type's user records by coins spent, with masked character IDs.
 
 The purpose is to provide a visible record of user participation and in-game activity.
 
@@ -103,22 +109,27 @@ At the current stage, IN mainly refers to coins spent inside the Community games
 
 ### OUT
 
-**OUT shows how Social Multiway uses company funds to provide real-world help.**
+**OUT shows company-submitted spending records in Malaysian Ringgit (RM), filtered by Kid, Elder, or Pet.**
 
-Social Multiway will calculate contributions based on eligible user activity involving **Gold Coins**.
+OUT is not a universal company total shared across all three types. Every company submission belongs to one character type and one spending date, with its own RM amount and supporting image evidence when available.
 
-The internal Gold Coin calculation does not need to be publicly displayed.
+The number of records depends on what the company submits. A character type can have zero, one, or multiple spending records on the same date. Each submission remains a separate table row; records are not merged into one daily row.
 
-Instead, Social Book will show the real-world outcome in Malaysian Ringgit (RM).
+OUT records are independent of users' data. Do not calculate OUT amounts or create OUT records from IN records, user counts, or Gold Coins. No coin-to-RM conversion is used on this page.
 
-Public information may include:
-
-- How much money Social Multiway spent
-- How many orphans were helped
-- How many elderly people were helped
-- How many stray animals were helped
+The OUT table displays the date, individual amount in RM, and a link to that record's image evidence. If no image is available, show an honest empty state. The analytics graph sums the submitted RM amounts for the selected character type on each date. The overview shows total RM, the number of company records, and the highest daily RM total within the displayed window.
 
 The purpose of OUT is to show the real-world contribution made by Social Multiway in a simple and transparent way.
+
+### Analytics and Records
+
+- Keep the analytics graph and records table as separate sections.
+- The graph always covers eight Malaysia dates: today and the seven previous dates. Dates without records show zero activity.
+- The table offers those same eight individual dates, defaults to today, and lists only the selected date and character type. There is no all-dates option.
+- Changing the table date or page does not change the graph's eight-day window.
+- Keep Kid, Elder, and Pet controls available in both IN and OUT. Switching views retains the character type and table date, and resets pagination to the first page.
+- Both tables support pagination so company submission counts are not limited to one record per day.
+- The current website uses clearly labeled demo data. Real company submissions and today's live updates require a future data connection; no submission form or live service is implemented yet.
 
 ### Important Social Book Principle
 
@@ -126,7 +137,7 @@ The public-facing concept should be easy to understand:
 
 **IN shows community participation. OUT shows real-world contribution.**
 
-The detailed internal calculation between Gold Coins and company spending does not need to be exposed publicly.
+Both views are organized by character type, but use independent data sources: user coin activity for IN and company-submitted spending records for OUT.
 
 ---
 

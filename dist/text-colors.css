@@ -1,6 +1,7 @@
-/* Shared text hierarchy for the three company pages. Backgrounds and artwork
+/* Shared text hierarchy for the company pages. Backgrounds and artwork
    keep their existing colors; each dark surface has its own inverse text. */
 :is(.homepage, .about-view, .contact-view) {
+  --company-paper: #f8f6ef;
   --text-heading: #2d2b26;
   --text-body: #5e5b52;
   --text-muted: #6b675c;
@@ -16,6 +17,10 @@
   --about-muted: var(--text-body);
   --contact-ink: var(--text-heading);
   --contact-muted: var(--text-body);
+}
+
+:is(.about-view, .contact-view) {
+  background: var(--company-paper);
 }
 
 /* Navigation and footer labels retain a clear hierarchy on their own surfaces. */
